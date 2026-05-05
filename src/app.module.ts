@@ -15,8 +15,11 @@ import { User } from './users/entities/user.entity';
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_NAME || 'respuesta_db',
       entities: [User, Respuesta],
-      synchronize: true, // Solo para desarrollo. En producción usar migraciones.
+      synchronize: true,
       logging: false,
+      ssl: process.env.NODE_ENV === 'production'
+        ? { rejectUnauthorized: false }
+        : false,
     }),
 
     AuthModule,

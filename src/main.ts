@@ -81,9 +81,6 @@ Esta API usa **JWT Bearer Token**.
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
-
-  console.log(`\n🚀 Aplicación corriendo en: http://localhost:${port}`);
-  console.log(`📋 Swagger UI disponible en: http://localhost:${port}/api\n`);
 }
 
 bootstrap();

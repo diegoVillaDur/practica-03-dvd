@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: practica-03-dvd-api
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node dist/main
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: DB_HOST
+        fromDatabase:
+          name: practica-03-dvd-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: practica-03-dvd-db
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: practica-03-dvd-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: practica-03-dvd-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: practica-03-dvd-db
+          property: database
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 1d
+
+databases:
+  - name: practica-03-dvd-db
+    plan: free
+    databaseName: respuesta_db
+    user: postgres
