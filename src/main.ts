@@ -27,30 +27,9 @@ async function bootstrap() {
     .setTitle('API REST - Respuestas de Examen')
     .setDescription(
       `
-## Descripción
+## Practca 03 Diego Villa Duran 4IM2
 
-API REST construida con **NestJS**, **TypeORM** y **PostgreSQL** para gestionar respuestas de exámenes.
-
-## Autenticación
-
-Esta API usa **JWT Bearer Token**.
-
-### Pasos para autenticarse:
-1. **Registrar** un usuario en \`POST /auth/register\`
-2. **Iniciar sesión** en \`POST /auth/login\` → obtendrás un \`access_token\`
-3. Hacer clic en el botón **🔒 Authorize** e ingresar: \`Bearer <tu_token>\`
-4. Las rutas marcadas con 🔒 ya estarán accesibles
-
-## Rutas protegidas
-
-| Método | Ruta | Protegida |
-|--------|------|-----------|
-| GET | /respuesta | ✅ Pública |
-| GET | /respuesta/:id | ✅ Pública |
-| POST | /respuesta | 🔒 JWT requerido |
-| PATCH | /respuesta/:id | 🔒 JWT requerido |
-| DELETE | /respuesta/:id | 🔒 JWT requerido |
-      `,
+### Entidad: Respuesta`
     )
     .setVersion('1.0')
     .addBearerAuth(
