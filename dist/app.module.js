@@ -9,8 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const config_1 = require("@nestjs/config");
 const auth_module_1 = require("./auth/auth.module");
+const respuesta_entity_1 = require("./respuesta/entities/respuesta.entity");
 const respuesta_module_1 = require("./respuesta/respuesta.module");
 const user_entity_1 = require("./users/entities/user.entity");
 let AppModule = class AppModule {
@@ -19,22 +19,19 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRootAsync({
-                imports: [config_1.ConfigModule],
-                inject: [config_1.ConfigService],
-                useFactory: (configService) => ({
-                    type: 'postgres',
-                    host: configService.get('DB_HOST'),
-                    port: configService.get('DB_PORT', 5432),
-                    username: configService.get('DB_USERNAME'),
-                    password: configService.get('DB_PASSWORD'),
-                    database: configService.get('DB_NAME'),
-                    entities: [user_entity_1.User],
-                    synchronize: true,
-                    ssl: {
-                        rejectUnauthorized: false,
-                    },
-                }),
+            typeorm_1.TypeOrmModule.forRoot({
+                type: 'postgres',
+                host: process.env.DB_HOST || 'localhost',
+                port: parseInt(process.env.DB_PORT || '5432', 10),
+                username: process.env.DB_USERNAME || 'postgres',
+                password: process.env.DB_PASSWORD || 'postgres',
+                database: process.env.DB_NAME || 'respuesta_db',
+                entities: [user_entity_1.User, respuesta_entity_1.Respuesta],
+                synchronize: true,
+                logging: false,
+                ssl: process.env.NODE_ENV === 'production'
+                    ? { rejectUnauthorized: false }
+                    : false,
             }),
             auth_module_1.AuthModule,
             respuesta_module_1.RespuestaModule,
